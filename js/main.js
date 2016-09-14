@@ -1,19 +1,15 @@
-var can;
-var ctx;
+var can, ctx;
 
-var canWidth;
-var canHeight;
+var canWidth, canHeight;
 
 var lastTime;//上一帧执行时间
 var deltaTime;//两帧之间的时间间隔
 
-var mx;
-var my;
+var mx, my;
 
-var plane;
-var bullet;
+var plane, bullet, enemy;
 
-var enemy;
+var score;
 
 window.onload = game;
 
@@ -46,6 +42,8 @@ function init(){
 
     enemy = new enemyObj();
     enemy.init();
+
+    score = new scoreObj();
 }
 
 function gameLoop(){
@@ -66,6 +64,7 @@ function gameLoop(){
     bullet.draw();
     enemyMonitor();
     enemy.draw();
+    score.draw();
 
     bulletEnemyCollision();
     planeEnemyCollision();
@@ -73,9 +72,11 @@ function gameLoop(){
 }
 
 function onMouseMove(e){
-    if(e.offsetX || e.layerX){
-        mx = e.offsetX == undefined ? e.layerX : e.offsetX;
-        my = e.offsetY == undefined ? e.layerY : e.offsetY;
+    if(!score.gameOver){
+        if(e.offsetX || e.layerX){
+            mx = e.offsetX == undefined ? e.layerX : e.offsetX;
+            my = e.offsetY == undefined ? e.layerY : e.offsetY;
 
+        }
     }
 }

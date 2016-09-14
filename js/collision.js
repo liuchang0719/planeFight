@@ -1,14 +1,18 @@
 function bulletEnemyCollision(){
-    for(var i = 0; i < bullet.num; i++){
-        if(bullet.alive[i]){
-            for(var j = 0; j < enemy.num; j++){
-                if(enemy.alive[j]){
-                    var l = caldistance(bullet.x[i], bullet.y[i], enemy.x[j], enemy.y[j]);
-                        if(l < 900){
-                            bullet.dead(i);
-                            enemy.dead(j);
+    if(!score.gameOver){
+        for(var i = 0; i < bullet.num; i++){
+            if(bullet.alive[i]){
+                for(var j = 0; j < enemy.num; j++){
+                    if(enemy.alive[j]){
+                        var l = caldistance(bullet.x[i], bullet.y[i], enemy.x[j], enemy.y[j]);
+                            if(l < 900){
+                                score.planeNum++;
+                                score.addScore();
+                                bullet.dead(i);
+                                enemy.dead(j);
+                            }
                         }
-                    }
+                }
             }
         }
     }
@@ -20,7 +24,7 @@ function planeEnemyCollision(){
             var l = caldistance(plane.x, plane.y, enemy.x[i], enemy.y[i]);
             if(l < 900){
                 //game over
-                console.log("game over");
+                score.gameOver = true;
             }
         }
     }
